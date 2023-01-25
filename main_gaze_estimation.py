@@ -71,7 +71,7 @@ def webcam_live_gaze_estimation(video_device_id: int = 0, draw_meshes: bool = Tr
                 .get_default_face_mesh_iris_connections_style())
 
         if landmarks is not None:
-            # Gaze estimation based on head
+            # Gaze estimation based on head's position
             frame = head_pose_estimator.estimate_direction(frame, landmarks)
 
             # TODO:  Pose estimation based on iris
@@ -83,4 +83,4 @@ def webcam_live_gaze_estimation(video_device_id: int = 0, draw_meshes: bool = Tr
 
 
 if __name__ == "__main__":
-    webcam_live_gaze_estimation(draw_meshes=True)
+    webcam_live_gaze_estimation(draw_meshes=False)
