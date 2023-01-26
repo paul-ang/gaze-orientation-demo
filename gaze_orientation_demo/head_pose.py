@@ -47,13 +47,13 @@ class HeadPose:
             head_direction = "Center"
 
         # Put text regarding pose
-        frame = cv2.putText(frame, f"Head x rotation: {x_angle:.0f}", (20, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+        frame = cv2.putText(frame, f"Head x rotation: {x_angle:.0f}", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
                             (0, 0, 0), 1, 2)
-        frame = cv2.putText(frame, f"Head y rotation: {y_angle:.0f}", (20, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+        frame = cv2.putText(frame, f"Head y rotation: {y_angle:.0f}", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
                             (0, 0, 0), 1, 2)
-        frame = cv2.putText(frame, f"Head z rotation: {z_angle:.0f}", (20, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+        frame = cv2.putText(frame, f"Head z rotation: {z_angle:.0f}", (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
                             (0, 0, 0), 1, 2)
-        frame = cv2.putText(frame, f"Head pose: {head_direction}", (20, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0),
+        frame = cv2.putText(frame, f"Head pose: {head_direction}", (10, 110), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0),
                             1, 2)
 
         return frame
