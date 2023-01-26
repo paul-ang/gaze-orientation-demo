@@ -2,8 +2,8 @@ import cv2
 import mediapipe as mp
 import numpy as np
 
-from gaze_orientation_demo.estimator.head_pose import HeadPose
-from gaze_orientation_demo.estimator.iris_pose import IrisPose
+from estimator.head_pose import HeadPose
+from estimator.iris_pose import IrisPose
 
 
 class GazeEstimation():
