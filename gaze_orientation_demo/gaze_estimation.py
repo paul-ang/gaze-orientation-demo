@@ -3,6 +3,7 @@ import mediapipe as mp
 import numpy as np
 
 from gaze_orientation_demo.head_pose import HeadPose
+from gaze_orientation_demo.iris_pose import IrisPose
 
 
 class GazeEstimation():
@@ -29,6 +30,7 @@ class GazeEstimation():
                                                     min_detection_confidence=0.5,
                                                     min_tracking_confidence=0.5)
         head_pose = HeadPose()
+        iris_pose = IrisPose()
 
         # Live capture from the camera
         cap = cv2.VideoCapture(video_device_id)
@@ -75,7 +77,8 @@ class GazeEstimation():
                 # Gaze estimation based on head's position
                 frame = head_pose.estimate_direction(frame, landmarks)
 
-                # TODO:  Pose estimation based on iris
+                # Gaze estimation based on irises
+                frame = iris_pose.estimate_direction(frame, landmarks)
 
             # Display frame on screen
             cv2.imshow('Live gaze estimation', frame)
