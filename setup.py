@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="gaze_orientation_demo",
-    version="0.0.5",
+    version="0.0.6",
     author="Paul Ang",
     long_description="A demo of gaze orientation estimation.",
     description="A demo of gaze orientation estimation.",
