@@ -3,6 +3,7 @@ from mediapipe.framework.formats.landmark_pb2 import NormalizedLandmarkList
 import cv2
 
 
+# This class estimates the gaze direction based on the irises' position.
 class IrisPose:
     def __init__(self):
         pass
