@@ -1,0 +1,124 @@
+<head>
+    <title>Gaze orientation estimation demo</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+
+<div id="container">
+    <div class="row"><img class="col-lg-12" id="image"/></div>
+    <div class="row">
+        <canvas style="display:None; width:100%" id="canvasOutput"></canvas>
+        <video id="display-feed" style="opacity:0" autoplay playsinline></video>
+        <button class="btn btn-primary" id="showVideo">Open camera</button>
+        <div id="errorMsg"></div>
+    </div>
+</div>
+</body>
+<input type="hidden" id="serverIP" name="serverIP" value={{server_ip}}>
+<footer>
+    <script>
+        // Webcam feed
+        const SERVER_IP = document.getElementById('serverIP').value
+        var socket = io.connect(SERVER_IP)
+        var video_dom = null;
+        const FPS = 120;  // used to compute the interval for sending the frames to the server
+
+        const constraints = window.constraints = {
+            audio: false,
+            video: true,
+            // video: {
+            //     // facingMode: {exact: "environment"},
+            //     width: 1280,
+            //     height: 720
+            // },
+        };
+
+        function handleSuccess(stream) {
+            video_dom = document.getElementById('display-feed');
+            const videoTracks = stream.getVideoTracks();
+            console.log('Got stream with constraints:', constraints);
+            console.log(`Using video device: ${videoTracks[0].label}`);
+            window.stream = stream; // make variable available to browser console
+            video_dom.srcObject = stream;
+
+            setInterval(() => {
+                sendFeed();
+            }, 10000 / FPS);
+        }
+
+        // Error hook if webcam can't be accessed
+        function handleError(error) {
+            if (error.name === 'ConstraintNotSatisfiedError') {
+                const v = constraints.video;
+                errorMsg(`The resolution ${v.width.exact}x${v.height.exact} px is not supported by your device.`);
+            } else if (error.name === 'PermissionDeniedError') {
+                errorMsg('Permissions have not been granted to use your camera and ' +
+                    'microphone, you need to allow the page access to your devices in ' +
+                    'order for the demo to work.');
+            }
+            errorMsg(`getUserMedia error: ${error.name}`, error);
+        }
+
+        // Display error messages
+        function errorMsg(msg, error) {
+            const errorElement = document.querySelector('#errorMsg');
+            errorElement.innerHTML += `<p>${msg}</p>`;
+            if (typeof error !== 'undefined') {
+                console.error(error);
+            }
+        }
+
+        // Init webcam
+        async function init_webcam(e) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                handleSuccess(stream);
+                e.target.style.display = "none";
+            } catch (e) {
+                handleError(e);
+            }
+        }
+
+        document.querySelector('#showVideo').addEventListener('click', e => init_webcam(e));
+
+        // Socket IO hookss
+        // Display segmented frame
+        const image_id = document.getElementById('image');
+        socket.on('response_back', function (bytestring) {
+            var image_url = bytestring.split('\'')[1];
+            image_id.src = "data:image/jpeg;base64," + image_url;
+        });
+
+        socket.on('connect', function () {
+            console.log("Connected...!", socket.connected)
+        });
+
+        // Send feed to the DNN for processing
+        var canvas = document.getElementById("canvasOutput");
+        const type = "image/jpeg";
+
+        function sendFeed() {
+            canvas.width = video_dom.videoWidth;
+            canvas.height = video_dom.videoHeight;
+            var canvasContext = canvas.getContext("2d");
+            canvasContext.drawImage(video_dom, 0, 0);
+            var data = canvas.toDataURL(type);
+            data = data.replace('data:' + type + ';base64,', '');
+
+            socket.emit('image', data);
+        }
+
+
+    </script>
+</footer>
