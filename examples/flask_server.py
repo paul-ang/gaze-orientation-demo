@@ -69,5 +69,4 @@ def image(data_image):
 
 
 if __name__ == "__main__":
-    # app.run(host='0.0.0.0', port=2204, threaded=True)
-    socketio.run(app, host='0.0.0.0', port=2204, debug=True, ssl_context='adhoc')
+    socketio.run(app, host='0.0.0.0', port=2204, debug=True, ssl_context='adhoc', allow_unsafe_werkzeug=True)
