@@ -3,7 +3,7 @@
 This repository implements two kinds of gaze estimation: based on the head position and based on the irises position. 
 
 # Usage instructions
-## Python package
+## 1. Python package
 
 Ensure `Python >= 3.7`. Note: A tagged release will automatically published to the test pypi via a GitHub action.
 
@@ -16,7 +16,7 @@ Install using `pip install gaze-orientation-demo --extra-index-url https://test.
     gaze_estimation = GazeEstimation()
     gaze_estimation.webcam_live_gaze_estimation()
 
-## Web server with Docker
+## 2. Web server with Docker
 
 Tested on _desktop_ Chrome browser and _iPhone_ Safari browser.
 
