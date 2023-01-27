@@ -66,8 +66,6 @@ class IrisPose:
 
         return frame
 
-
-
     def get_average_coors(self, landmarks, landmark_idxs, shape):
         '''
         Calculate the average of multiple image coordinates.
