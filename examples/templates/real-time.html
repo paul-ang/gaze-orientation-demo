@@ -14,7 +14,10 @@
 </head>
 
 <body>
-
+<div id="intro">
+<h1>A gaze estimation demo using your webcam.</h1>
+<p>To get started, click on the "Open camera" button.</p>
+</div>
 <div id="container">
     <div class="row"><img class="col-lg-12" id="image"/></div>
     <div class="row">
@@ -85,6 +88,7 @@
                 const stream = await navigator.mediaDevices.getUserMedia(constraints);
                 handleSuccess(stream);
                 e.target.style.display = "none";
+                document.querySelector('#intro').remove()
             } catch (e) {
                 handleError(e);
             }

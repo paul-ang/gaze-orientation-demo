@@ -9,7 +9,7 @@ class IrisPose:
         pass
 
     def estimate_direction(self, frame: np.array, landmarks: NormalizedLandmarkList, draw_pose_direction: bool = True,
-                           distance_threshold: int = 3):
+                           distance_threshold: int = 2):
         '''
             :param frame: a frame from the webcam.
             :param landmarks: the NormalizedLandmarkList from Meshpipe.
@@ -40,7 +40,7 @@ class IrisPose:
 
         # Get direction
         gaze_direction = ""
-        if y_distance > distance_threshold:
+        if y_distance >= distance_threshold:
             gaze_direction = "Top"
         elif y_distance < -distance_threshold:
             gaze_direction = "Bottom"
