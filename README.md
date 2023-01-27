@@ -18,7 +18,7 @@ Install using `pip install gaze-orientation-demo==6 --extra-index-url https://te
 
 ## 2. Web server with Docker
 
-Tested on _desktop_ Chrome browser and _iPhone_ Safari browser.
+Tested on _desktop_ and _mobile_ Chrome browsers.
 
 1. Build the Dockerfile: `docker build -t gaze-demo .`
 2. Create a container: `docker run -p 2204:2204 gaze-demo`
