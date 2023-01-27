@@ -7,7 +7,7 @@ This repository implements two kinds of gaze estimation: based on the head posit
 
 Ensure `Python >= 3.7`. Note: A tagged release will automatically published to the test pypi via a GitHub action.
 
-Install using `pip install gaze-orientation-demo --extra-index-url https://test.pypi.org/simple`
+Install using `pip install gaze-orientation-demo==6 --extra-index-url https://test.pypi.org/simple`
 
 **Example code:**
 
