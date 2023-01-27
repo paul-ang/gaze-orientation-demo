@@ -1,16 +1,12 @@
 import sys
-
 sys.path.append('../')
 
 import base64
-
 import numpy as np
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit
 import mediapipe as mp
-
 import cv2
-
 from gaze_orientation_demo.head_pose import HeadPose
 from gaze_orientation_demo.iris_pose import IrisPose
 

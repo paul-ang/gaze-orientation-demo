@@ -22,7 +22,8 @@ class IrisPose:
         right_iris_image_coor = self.get_average_coors(landmarks, (468, 469, 470, 471, 472), frame.shape)
 
         # Center point of both irises
-        between_iris_image_coor = ((left_iris_image_coor[0] + right_iris_image_coor[0])//2, (left_iris_image_coor[1] + right_iris_image_coor[1])//2)
+        between_iris_image_coor = ((left_iris_image_coor[0] + right_iris_image_coor[0]) // 2,
+                                   (left_iris_image_coor[1] + right_iris_image_coor[1]) // 2)
 
         # Eye center positions
         left_eye_center_coor = self.get_average_coors(landmarks, (
@@ -56,9 +57,12 @@ class IrisPose:
         frame = cv2.line(frame, right_iris_image_coor, right_iris_image_coor, (0, 0, 255), 3)
         frame = cv2.line(frame, between_eyes_image_coor, between_eyes_image_coor, (255, 0, 0), 3)
         frame = cv2.line(frame, between_iris_image_coor, between_iris_image_coor, (0, 0, 255), 3)
-        frame = cv2.putText(frame, f"X distance center of eyes and irises: {x_distance}", (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, 2)
-        frame = cv2.putText(frame, f"Y distance center of eyes and irises: {y_distance}", (10, 170), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, 2)
-        frame = cv2.putText(frame, f"Iris gaze direction: {gaze_direction}", (10, 190), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, 2)
+        frame = cv2.putText(frame, f"X distance center of eyes and irises: {x_distance}", (10, 150),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, 2)
+        frame = cv2.putText(frame, f"Y distance center of eyes and irises: {y_distance}", (10, 170),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, 2)
+        frame = cv2.putText(frame, f"Iris gaze direction: {gaze_direction}", (10, 190), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+                            (0, 0, 0), 1, 2)
 
         return frame
 
