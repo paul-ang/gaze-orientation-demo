@@ -23,3 +23,5 @@ Tested on _desktop_ Chrome browser and _iPhone_ Safari browser.
 1. Build the Dockerfile: `docker build -t gaze-demo .`
 2. Create a container: `docker run -p 2204:2204 gaze-demo`
 3. Access the website on the host machine via localhost (http://127.0.0.1:2204) or on other computers via the host's private IP (e.g., http://192.168.8.199:2204).
+
+<img height="400" src="/Users/paulang/repo/gaze-orientation-demo/figures/website.png" width="620"/>
